@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CafeTEC
 
 Sistema de pedidos para la cafetería escolar: menú, carrito, pedidos con QR, panel de caja, inventario, reportes y usuarios.
@@ -104,3 +105,6 @@ Cada pedido tiene un `qrToken` aleatorio de 192 bits. El QR solo contiene `<orig
 ## Migraciones
 
 Al arrancar, `lib/server/migrations.ts` actualiza el archivo de datos sin borrar nada. Antes guarda una copia `cafetec.v1.backup-<fecha>.json`. La versión 2 añade `payments`, `orderEvents` (historial) y un `qrToken` para cada pedido existente.
+=======
+# CafeTec
+>>>>>>> 918c0663fd965aa45f14f92eb6bab3e150db357e
