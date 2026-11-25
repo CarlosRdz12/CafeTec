@@ -1,0 +1,21 @@
+# Despliegue en Render (plan gratuito). Ver la sección "Despliegue" del README.
+# Render lee este archivo al crear un "Blueprint" desde el repositorio de GitHub.
+services:
+  - type: web
+    name: cafetec
+    runtime: node
+    plan: free
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm build
+    startCommand: pnpm start
+    healthCheckPath: /login
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Secreto fijo para firmar las sesiones; Render lo genera una sola vez.
+      - key: SESSION_SECRET
+        generateValue: true
+      # El plan gratuito no tiene disco persistente: los datos se pierden
+      # cuando el servicio se reinicia, se duerme o se vuelve a desplegar.
+      - key: CAFETEC_DATA_DIR
+        value: /tmp/cafetec-data

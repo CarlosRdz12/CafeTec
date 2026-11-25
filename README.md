@@ -50,6 +50,25 @@ También aparece un QR para abrirlo con la cámara del teléfono.
 
 Si la cámara no está disponible, la caja puede buscar el pedido por **folio**.
 
+## Despliegue en internet (Render, gratis)
+
+CafeTEC necesita un servidor Node.js, así que **no funciona en GitHub Pages** (que solo sirve archivos estáticos). El código vive en GitHub y se publica en [Render](https://render.com), conectado al repositorio.
+
+1. Sube el proyecto a GitHub.
+2. En Render: **New → Blueprint** y elige el repositorio. Render lee `render.yaml` y crea el servicio `cafetec` con:
+   - Build: `corepack enable && pnpm install --frozen-lockfile && pnpm build`
+   - Inicio: `pnpm start`
+   - `SESSION_SECRET` generado automáticamente.
+3. Al terminar, abre `https://<tu-servicio>.onrender.com/configuracion-inicial` y crea el administrador.
+4. (Opcional) En *Environment*, define `CAFETEC_PUBLIC_URL` con la URL del servicio para que los QR usen siempre esa dirección.
+
+Cada `push` a `main` vuelve a desplegar automáticamente, y GitHub Actions (`.github/workflows/ci.yml`) corre la verificación de tipos, las pruebas y el build.
+
+> **Limitaciones del plan gratuito:**
+> - **Los datos no son permanentes.** No hay disco persistente: usuarios, pedidos e inventario se borran cuando el servicio se reinicia, se vuelve a desplegar o se duerme. Úsalo como demo; para datos reales hace falta un plan con disco (y `CAFETEC_DATA_DIR` apuntando a él).
+> - **Se duerme** tras ~15 minutos sin visitas; la primera visita después tarda unos 30–60 segundos en responder.
+> - Después de cada borrado hay que volver a hacer la configuración inicial.
+
 ## Variables de entorno (opcionales)
 
 | Variable | Uso |

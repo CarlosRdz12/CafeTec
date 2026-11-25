@@ -2,9 +2,6 @@ import { lanAddresses } from './scripts/lan-network.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
     unoptimized: true,
   },
